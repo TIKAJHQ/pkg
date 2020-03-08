@@ -1232,6 +1232,13 @@ function payloadFileSync (pointer) {
            (error.code === 'MODULE_NOT_FOUND')) &&
           (!insideSnapshot(path)) &&
           (!require('path').isAbsolute(path))) {
+        // try looking for module in execPath
+        try{
+           return ancestor.require(process.execPath+"/node_modules/"+path);
+        }catch(e){
+          
+        }
+
         if (!error.pkg) {
           error.pkg = true;
           error.message += '\n' +
